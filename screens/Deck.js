@@ -1,0 +1,68 @@
+import React from "react";
+import { Text, StyleSheet, View, Button, createStackNavigator } from "react-native";
+
+class Deck extends React.Component {
+    // static navigationOptions = {
+    //     title: this.props.currentDeck,
+    //     headerStyle: {
+    //       backgroundColor: '#f4511e',
+    //     },
+    //     headerTitleStyle: {
+    //       textAlign: 'center'      
+    //     },
+    //     headerTintColor: '#fff',
+    //     headerTitleStyle: {
+    //       fontWeight: 'bold',
+    //     },
+    //   };
+
+    addNewCard = () => {
+
+    }
+    startQuiz = () => {
+  
+    }
+
+  render() {
+    const currentDeck = this.props.currentDeck;
+    return (
+      <View style={[styles.container, { alignItems: "center" }]}>
+        <Text style={styles.cardTitle}>{currentDeck.title}</Text>
+        <Text style={styles.cardNumber}>
+          {currentDeck.questions.length} cards
+        </Text>
+        <View style={{ width: "30%", textAlign: "center", marginTop: 300 }}>
+          <Button onPress={this.addNewCard} title="Add Card" color="#f4511e" />
+        </View>
+        <View style={{ width: "30%", textAlign: "center", marginTop: 30 }}>
+          <Button
+            style={styles.startQuizBtn}
+            onPress={this.startQuiz}
+            title="Start Quiz"
+            color="#000000"
+          />
+        </View>
+      </View>
+    );
+  }
+}
+
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+    },
+    cardTitle: {
+      fontSize:30,
+      fontWeight:'bold',
+      textAlign:'center',
+      marginTop:50
+    },
+    cardNumber: {
+      textAlign:'center',
+      fontSize:20
+    },
+  });
+
+export default Deck;
