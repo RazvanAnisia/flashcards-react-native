@@ -1,21 +1,24 @@
 import React from "react";
-import { Text, StyleSheet, View, Button, createStackNavigator } from "react-native";
+import { Text, StyleSheet, View, Button} from "react-native";
 
 class Deck extends React.Component {
-    // static navigationOptions = {
-    //     title: this.props.currentDeck,
-    //     headerStyle: {
-    //       backgroundColor: '#f4511e',
-    //     },
-    //     headerTitleStyle: {
-    //       textAlign: 'center'      
-    //     },
-    //     headerTintColor: '#fff',
-    //     headerTitleStyle: {
-    //       fontWeight: 'bold',
-    //     },
-    //   };
-
+  
+  static navigationOptions = ({navigation}) => {
+    const { currentDeck } = navigation.state.params;
+     return {
+      title:currentDeck.title,
+      headerStyle: {
+        backgroundColor: '#f4511e',
+      },
+      headerTitleStyle: {
+        textAlign: 'center'      
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+     }
+  }   
     addNewCard = () => {
 
     }
@@ -24,7 +27,7 @@ class Deck extends React.Component {
     }
 
   render() {
-    const currentDeck = this.props.currentDeck;
+    const currentDeck = this.props.navigation.state.params.currentDeck;
     return (
       <View style={[styles.container, { alignItems: "center" }]}>
         <Text style={styles.cardTitle}>{currentDeck.title}</Text>

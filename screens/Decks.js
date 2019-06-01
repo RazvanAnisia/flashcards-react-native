@@ -9,7 +9,8 @@ import {
   TouchableOpacity,
   Alert,
   View,
-  createStackNavigator 
+  createStackNavigator ,
+  createAppContainer
 } from 'react-native';
 //just for demo
 import   { getDecks }  from '../utils/helpers'
@@ -20,33 +21,36 @@ import Deck from './Deck'
 //   Deck:Deck,
 // });
 
+// const AppContainer = createAppContainer(DeckStack);
+// const Apps = createBrowserApp(AppNavigator);
 
-export default class Decks extends React.Component {
+
+ class Decks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       decks:getDecks(),
       currentDeck:null,
-      
     }
 }
 
-  static navigationOptions = {
-    title: 'Study Cards',
-    headerStyle: {
-      backgroundColor: '#f4511e',
-    },
-    headerTitleStyle: {
-      textAlign: 'center'      
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  };
+  // static navigationOptions = {
+  //   title: 'Study Cards',
+  //   headerStyle: {
+  //     backgroundColor: '#f4511e',
+  //   },
+  //   headerTitleStyle: {
+  //     textAlign: 'center'      
+  //   },
+  //   headerTintColor: '#fff',
+  //   headerTitleStyle: {
+  //     fontWeight: 'bold',
+  //   },
+  // };
 
   currentDeck = (newDeck) => {
     this.setState({ currentDeck:newDeck })
+    this.props.navigation.navigate('Deck' , { currentDeck: newDeck})
   }
   
   render() {
@@ -67,9 +71,10 @@ export default class Decks extends React.Component {
     )
     return (
       <View style={{flex:1}}>
-         {this.state.currentDeck 
+         {/* {this.state.currentDeck 
             ? <Deck currentDeck={this.state.currentDeck} />
-            : decks}
+            : decks} */}
+            { decks }
       </View>
      
     );
@@ -77,6 +82,8 @@ export default class Decks extends React.Component {
  
 }
 
+
+export default Decks;
 
 const styles = StyleSheet.create({
   container: {
