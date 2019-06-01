@@ -19,12 +19,9 @@ class Deck extends React.Component {
       },
      }
   }   
-    addNewCard = () => {
-
-    }
-    startQuiz = () => {
+   startQuiz = () => {
   
-    }
+   }
 
   render() {
     const currentDeck = this.props.navigation.state.params.currentDeck;
@@ -35,7 +32,8 @@ class Deck extends React.Component {
           {currentDeck.questions.length} cards
         </Text>
         <View style={{ width: "30%", textAlign: "center", marginTop: 300 }}>
-          <Button onPress={this.addNewCard} title="Add Card" color="#f4511e" />
+          <Button onPress={()=>this.props.navigation.navigate('AddCard', {deckTitle:currentDeck.title})} 
+           title="Add Card" color="#f4511e" />
         </View>
         <View style={{ width: "30%", textAlign: "center", marginTop: 30 }}>
           <Button

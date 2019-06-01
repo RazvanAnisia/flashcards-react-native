@@ -109,13 +109,22 @@ export function getDecks() {
 }
 
 export function getDeck () {
- 
+ //get a specific deck
 }
 
 export  function saveDeckTitle( title, card) {
     // take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title. 
 
 }
+
+export function addNewCard(deck, newCard) {
+  for (var property in decks) {
+    if(property === deck) {
+      decks[property].questions.concat(newCard) 
+    }
+  }
+}
+
 
 //Notifications
 export function clearLocalNotification () {

@@ -4,13 +4,12 @@ import { createStackNavigator, createAppContainer, createSwitchNavigator} from '
 import Deck from '../screens/Deck'
 import MainTabNavigator from './MainTabNavigator';
 import { white } from 'ansi-colors';
-
+import AddCard from '../screens/AddCard'
 
 const MainNavigator = createStackNavigator({
    Main:MainTabNavigator,
-   Deck: {
-      screen:Deck,     
-   }
+   Deck: Deck,  
+   AddCard:AddCard      
  });
  
 //  DeckView.navigationOptions = {
