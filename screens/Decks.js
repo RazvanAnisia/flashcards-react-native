@@ -20,7 +20,7 @@ import Deck from './Deck'
   constructor(props) {
     super(props);
     this.state = {
-      decks:getDecks(),
+      decks:'',
       currentDeck:null,
       
     }
@@ -40,12 +40,20 @@ import Deck from './Deck'
     },
   };
 
+  componentDidMount() {
+    //async
+    getDecks().then((res) => { 
+      this.setState({decks:res})})
+    
+  }
+  
   currentDeck = (newDeck) => {
     this.setState({ currentDeck:newDeck })
     this.props.navigation.navigate('Deck' , { currentDeck: newDeck})
   }
   
   render() {
+    console.log('decks state in Decks.js',this.state.decks['Angular'])
     const decks = (
       <ScrollView style={styles.container}>
         { 
@@ -63,10 +71,7 @@ import Deck from './Deck'
     )
     return (
       <View style={{flex:1}}>
-         {/* {this.state.currentDeck 
-            ? <Deck currentDeck={this.state.currentDeck} />
-            : decks} */}
-            { decks }
+          {decks}
       </View>
      
     );
