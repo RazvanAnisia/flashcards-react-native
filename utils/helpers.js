@@ -1,4 +1,4 @@
-import { View, StyleSheet, AsyncStorage } from 'react-native'
+import { AsyncStorage } from 'react-native'
 
  
 function generateID () {
@@ -18,7 +18,6 @@ export function newDeck (deckTitle) {
 }
 
 
-//Async Storage
 
 
 
@@ -103,8 +102,14 @@ const decks = {
   }
 }
 
+//Async Storage
+
+//Initiate data
+AsyncStorage.setItem('decks', JSON.stringify(decks)).then(() =>getDecks())
+
 export function getDecks() {
     //return all the decks along with their titles
+     AsyncStorage.getItem('decks').then((decks) => JSON.parse(decks)).then((res) => res)
     return decks;
 }
 
