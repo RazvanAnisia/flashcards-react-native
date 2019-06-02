@@ -49,18 +49,42 @@ export default createBottomTabNavigator({
   HomeStack: {
     screen:Decks,
     navigationOptions: {
+      tabBarOptions : {
+        inactiveTintColor:'#000000',
+        activeTintColor:'#ffffff',
+        labelStyle:{
+          fontSize:15
+        },
+        style: {
+          backgroundColor: '#f4511e',
+          height:70,
+         
+        }
+      }, 
       tabBarLabel: 'Decks',
       tabBarIcon: ({ focused }) => (
-        <MaterialIcons  size={25}
+        <MaterialIcons color={'#ffffff'} size={30}
         name='library-books'/>      
       )}
   },
   AddDeck: {
     screen:AddDeck,
     navigationOptions: {
+      tabBarOptions : {
+        inactiveTintColor:'#000000',
+        activeTintColor:'#ffffff',
+        labelStyle:{
+          fontSize:15
+        },
+        style: {
+          backgroundColor: '#f4511e',
+          height:70,
+         
+        }
+      }, 
       tabBarLabel: 'Add Deck',
       tabBarIcon: ({ focused }) => (
-        <Ionicons  size={25}
+        <Ionicons color={'#ffffff'}  size={30}
          name='md-add-circle'/>
       ),
     }

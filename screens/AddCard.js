@@ -38,16 +38,17 @@ export default class AddCard extends React.Component {
         this.props.navigation.goBack()
     }
     onChangeQuestionName= (text) => {
-       this.setState({questionName:text})
-       this.checkInputs() 
+       this.setState({questionName:text},  this.checkInputs)
+       
     }
     onChangeQuestionAnswer= (text) => {
-        this.setState({questionAnswer:text}) 
-        this.checkInputs()
+        this.setState({questionAnswer:text}, this.checkInputs) 
     }
     checkInputs = () => {
-        if(this.state.questionAnswer && this.state.questionAnswer !== ' ' && this.state.questionName && this.state.questionName !== ' ') {
+        if(this.state.questionAnswer && this.state.questionAnswer !== '' && this.state.questionName && this.state.questionName !== '') {
           this.setState({disabledBtn:false})
+        }else {
+          this.setState({disabledBtn:true})
         }
     }
 

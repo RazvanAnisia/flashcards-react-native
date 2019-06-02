@@ -26,11 +26,11 @@ const decks = {
   React: {
     title: 'React',
     questions: [
-      {
+      { id:generateID(),
         question: 'What is React?',
         answer: 'A library for managing user interfaces'
       },
-      {
+      { id:generateID(),
         question: 'Where do you make Ajax requests in React?',
         answer: 'The componentDidMount lifecycle event'
       }
@@ -39,7 +39,7 @@ const decks = {
   JavaScript: {
     title: 'JavaScript',
     questions: [
-      {
+      { id:generateID(),
         question: 'What is a closure?',
         answer: 'The combination of a function and the lexical environment within which that function was declared.'
       }
@@ -48,15 +48,15 @@ const decks = {
   Arrays: {
     title: 'Arrays',
     questions: [
-      {
+      { id:generateID(),
         question: 'What JS array method can filter elements?',
         answer: 'The combination of a function and the lexical environment within which that function was declared.'
       },
-      {
+      { id:generateID(),
         question: 'What JS array method can filter elements?',
         answer: 'The combination of a function and the lexical environment within which that function was declared.'
       },
-      {
+      { id:generateID(),
         question: 'What JS array method can filter elements?',
         answer: 'The combination of a function and the lexical environment within which that function was declared.'
       }
@@ -65,11 +65,11 @@ const decks = {
   Angular: {
     title: 'Angular',
     questions: [
-      {
+      { id:generateID(),
         question: 'What is React?',
         answer: 'A library for managing user interfaces'
       },
-      {
+      { id:generateID(),
         question: 'Where do you make Ajax requests in React?',
         answer: 'The componentDidMount lifecycle event'
       }
@@ -78,7 +78,7 @@ const decks = {
   PHP: {
     title: 'PHP',
     questions: [
-      {
+      { id:generateID(),
         question: 'What is a closure?',
         answer: 'The combination of a function and the lexical environment within which that function was declared.'
       }
@@ -87,15 +87,15 @@ const decks = {
   Node: {
     title: 'Node',
     questions: [
-      {
+      { id:generateID(),
         question: 'What JS array method can filter elements?',
         answer: 'The combination of a function and the lexical environment within which that function was declared.'
       },
-      {
+      { id:generateID(),
         question: 'What JS array method can filter elements?',
         answer: 'The combination of a function and the lexical environment within which that function was declared.'
       },
-      {
+      { id:generateID(),
         question: 'What JS array method can filter elements?',
         answer: 'The combination of a function and the lexical environment within which that function was declared.'
       }

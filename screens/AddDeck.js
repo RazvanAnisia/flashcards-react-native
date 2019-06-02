@@ -23,8 +23,8 @@ export default class AddDeck extends React.Component {
   }
 
   onChangeTitle = (text) => {
-    this.setState({titleName:text})
-    this.checkInputs();
+    this.setState({titleName:text},  this.checkInputs)
+   
   }
 
   handleNewDeckTitleSubmit = () => {
@@ -33,6 +33,8 @@ export default class AddDeck extends React.Component {
   checkInputs = () => {
     if(this.state.titleName !== ' ' && this.state.titleName ) {
       this.setState({disabledBtn:false})
+    }else {
+      this.setState({disabledBtn:true})
     }
 }
   render() {

@@ -5,11 +5,15 @@ import Deck from '../screens/Deck'
 import MainTabNavigator from './MainTabNavigator';
 import { white } from 'ansi-colors';
 import AddCard from '../screens/AddCard'
+import Decks from '../screens/Decks'
+import Quiz from '../screens/Quiz'
 
 const MainNavigator = createStackNavigator({
    Main:MainTabNavigator,
    Deck: Deck,  
-   AddCard:AddCard      
+   AddCard:AddCard,
+   Decks:Decks,
+   Quiz:Quiz
  });
  
 //  DeckView.navigationOptions = {

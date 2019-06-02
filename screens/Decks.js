@@ -16,15 +16,6 @@ import {
 import   { getDecks }  from '../utils/helpers'
 import Deck from './Deck'
 
-
-// const DeckStack = createStackNavigator({
-//   Deck:Deck,
-// });
-
-// const AppContainer = createAppContainer(DeckStack);
-// const Apps = createBrowserApp(AppNavigator);
-
-
  class Decks extends React.Component {
   constructor(props) {
     super(props);
@@ -35,19 +26,19 @@ import Deck from './Deck'
     }
 }
 
-  // static navigationOptions = {
-  //   title: 'Study Cards',
-  //   headerStyle: {
-  //     backgroundColor: '#f4511e',
-  //   },
-  //   headerTitleStyle: {
-  //     textAlign: 'center'      
-  //   },
-  //   headerTintColor: '#fff',
-  //   headerTitleStyle: {
-  //     fontWeight: 'bold',
-  //   },
-  // };
+  static navigationOptions = {
+    title: 'Study Cards',
+    headerStyle: {
+      backgroundColor: '#f4511e',
+    },
+    headerTitleStyle: {
+      textAlign: 'center'      
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
 
   currentDeck = (newDeck) => {
     this.setState({ currentDeck:newDeck })
@@ -95,13 +86,15 @@ const styles = StyleSheet.create({
     flex:1,
     height:150,
     borderBottomWidth: 1.5 ,
-    borderBottomColor:'#000000'
+    borderBottomColor:'#000000',
+    
   },
   cardTitle: {
     fontSize:30,
     fontWeight:'bold',
     textAlign:'center',
-    marginTop:50
+    marginTop:50,
+    color:'#f4511e'
   },
   cardNumber: {
     textAlign:'center',

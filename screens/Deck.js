@@ -20,11 +20,11 @@ class Deck extends React.Component {
      }
   }   
    startQuiz = () => {
-  
+    this.props.navigation.navigate('Quiz', {currentDeck:this.props.navigation.state.params.currentDeck})
    }
 
    handleDeleteDeck = () => {
-
+    
    }
 
 
