@@ -117,10 +117,12 @@ export  function saveDeckTitle( title, card) {
 
 }
 
-export function addNewCard(deck, newCard) {
+export function addNewCard(deckTitle, newCard) {
   for (var property in decks) {
-    if(property === deck) {
-      decks[property].questions.concat(newCard) 
+    if(property === deckTitle) {
+       //decks[property].questions.concat(newCard)
+       decks[property].questions.push(newCard)
+      //console.log(decks[property]) 
     }
   }
 }

@@ -31,6 +31,7 @@ import Deck from './Deck'
     this.state = {
       decks:getDecks(),
       currentDeck:null,
+      
     }
 }
 

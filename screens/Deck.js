@@ -23,6 +23,11 @@ class Deck extends React.Component {
   
    }
 
+   handleDeleteDeck = () => {
+
+   }
+
+
   render() {
     const currentDeck = this.props.navigation.state.params.currentDeck;
     return (
@@ -37,11 +42,17 @@ class Deck extends React.Component {
         </View>
         <View style={{ width: "30%", textAlign: "center", marginTop: 30 }}>
           <Button
-            style={styles.startQuizBtn}
             onPress={this.startQuiz}
             title="Start Quiz"
             color="#000000"
           />
+        </View>
+        <View style={{ width: "30%", textAlign: "center", marginTop: 30 }}>
+         <Text 
+           onPress={this.handleDeleteDeck}
+           style={styles.deleteText}>
+           Delete Deck
+          </Text>
         </View>
       </View>
     );
@@ -64,6 +75,11 @@ const styles = StyleSheet.create({
       textAlign:'center',
       fontSize:20
     },
+    deleteText: {
+      color:'#f4511e',
+      fontSize:22,
+      textAlign:'center'
+    }
   });
 
 export default Deck;

@@ -5,12 +5,14 @@ import { addNewCard } from '../utils/helpers'
 export default class AddCard extends React.Component {
 
     state = {
-        questionName:'',
-        questionAnswer:''
+        questionName:null,
+        questionAnswer:null,
+        disabledBtn:true
     }
 
     static navigationOptions = ({navigation}) => {
         const { deckTitle } = navigation.state.params;
+        
          return {
          headerTitle:deckTitle,
           headerStyle: {
@@ -32,13 +34,21 @@ export default class AddCard extends React.Component {
             answer:this.state.questionAnswer
         }
         const deckTitle = this.props.navigation.state.params.deckTitle
-        addNewCard(deckTitle,newCard)
+        addNewCard(deckTitle, newCard)
+        this.props.navigation.goBack()
     }
     onChangeQuestionName= (text) => {
-       this.setState({questionName:text}) 
+       this.setState({questionName:text})
+       this.checkInputs() 
     }
     onChangeQuestionAnswer= (text) => {
         this.setState({questionAnswer:text}) 
+        this.checkInputs()
+    }
+    checkInputs = () => {
+        if(this.state.questionAnswer && this.state.questionAnswer !== ' ' && this.state.questionName && this.state.questionName !== ' ') {
+          this.setState({disabledBtn:false})
+        }
     }
 
 
@@ -58,6 +68,7 @@ export default class AddCard extends React.Component {
       />
       <View style={styles.submitBtn} >
        <Button
+            disabled={this.state.disabledBtn}
             title="Submit"
             color="#000000"
             onPress={this.addNewCardSubmit}
