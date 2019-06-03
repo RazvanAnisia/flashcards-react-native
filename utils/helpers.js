@@ -17,10 +17,6 @@ export function newDeck (deckTitle) {
     }
 }
 
-
-
-
-
 const decks = {
   React: {
     title: 'React',
@@ -76,48 +72,41 @@ export function getDecks() {
    
 }
 
-export function getDeck () {
+export function getDeck (deckTitle) {
  //get a specific deck
+ return AsyncStorage.getItem('decks').then((decks) => JSON.parse(decks))
+ .then((decks) => decks[deckTitle])
+ .catch((err) => console.log(err))
 }
 
-export  function saveDeckTitle( title, card) {
+export  function saveDeckTitle( deckTitle) {
     // take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title. 
-
+    AsyncStorage.getItem('decks').then((decks) => JSON.parse(decks))
+    .then((decks) =>  {
+      decks[deckTitle]={}
+      return decks;
+    })
+    .then((newDeck) => AsyncStorage.setItem('decks', JSON.stringify(newDeck)).then( AsyncStorage.getItem('decks').then((res) =>JSON.parse(res)).then(res => res )) )
+    .catch((err) => console.log(err))
 }
 
 export function addNewCard(deckTitle, newCard) {
-  // return AsyncStorage.getItem('decks').then(results => {
-  //   const data = JSON.parse(results);
-
-  //   // Add card to existing deck data.
-  //   data[deckTitle].questions.concat(newCard) 
-     
-  //   };
-
-  //   // Save updated deck data back to storage
-  //   AsyncStorage.setItem('decks', JSON.stringify(data));
-  // });
   
-
-   return AsyncStorage.getItem('decks').then((decks) => JSON.parse(decks))
-  .then((decks) => {
-    for (let property in decks) {
-      if(property === deckTitle) {
-         //decks[property].questions.concat(newCard)
-        decks[property].questions.push(newCard)
-        // console.log(decks[property]) 
-        
-      }
-    }
-    return decks
+  return  AsyncStorage.getItem('decks').then((decks) => JSON.parse(decks))
+  .then((decks) =>  {
+     decks[deckTitle].questions.push(newCard)
+    // decks = {
+    //   ...decks[deckTitle],
+    //   questions: [
+    //     ...decks[deckTitle].questions,
+    //     { question: newCard.question, answer:newCard.answer}
+    //   ]
+    // } 
+    return decks;
   })
-  .then((res) => JSON.stringify(res))
-  .then((newCard) => AsyncStorage.mergeItem('decks', newCard) )
-
-  //.then( AsyncStorage.getItem('decks').then((res) =>JSON.parse(res)).then(res => console.log(res) ))
-  ///AsyncStorage.setItem('decks', JSON.stringify(res))
-
-  
+  .then((newCard) => AsyncStorage.setItem('decks', JSON.stringify(newCard)).then( AsyncStorage.getItem('decks').then((res) =>JSON.parse(res)).then(res => res )) )
+  .catch((err) => console.log(err))
+   
 }
 
 

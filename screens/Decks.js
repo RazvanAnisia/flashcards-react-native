@@ -17,14 +17,12 @@ import   { getDecks }  from '../utils/helpers'
 import Deck from './Deck'
 
  class Decks extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       decks:'',
       currentDeck:null,
-      
-    }
-}
+   }
+ 
+
 
   static navigationOptions = {
     title: 'Study Cards',
@@ -40,20 +38,27 @@ import Deck from './Deck'
     },
   };
 
-  componentDidMount() {
+  componentDidMount()  {
     //async
     getDecks().then((res) => { 
       this.setState({decks:res})})
-    
-  }
+    }
   
+  manualUpdate = () => {
+     //async
+     getDecks().then((res) => { 
+      this.setState({decks:res})})
+    }
+  
+
   currentDeck = (newDeck) => {
     this.setState({ currentDeck:newDeck })
-    this.props.navigation.navigate('Deck' , { currentDeck: newDeck})
+    this.props.navigation.navigate('Deck' , { currentDeck: newDeck, manualUpdate:this.manualUpdate })
   }
   
   render() {
-    console.log('decks state in Decks.js',this.state.decks['Angular'])
+    
+   //console.log(this.state.decks)
     const decks = (
       <ScrollView style={styles.container}>
         { 
@@ -81,6 +86,8 @@ import Deck from './Deck'
 
 
 export default Decks;
+
+
 
 const styles = StyleSheet.create({
   container: {

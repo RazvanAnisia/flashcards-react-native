@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, TextInput, Text, Button } from 'react-native';
+import {saveDeckTitle} from '../utils/helpers'
 
 export default class AddDeck extends React.Component {
   static navigationOptions = {
@@ -16,7 +17,6 @@ export default class AddDeck extends React.Component {
     },
   };
 
-
   state={
     titleName: null,
     disabledBtn: true
@@ -28,7 +28,8 @@ export default class AddDeck extends React.Component {
   }
 
   handleNewDeckTitleSubmit = () => {
-    console.log('submit')
+    console.log('added deck')
+    saveDeckTitle(this.state.titleName)
   }
   checkInputs = () => {
     if(this.state.titleName !== ' ' && this.state.titleName ) {

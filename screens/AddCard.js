@@ -27,15 +27,20 @@ export default class AddCard extends React.Component {
           },
          }
       }   
-
+    
     addNewCardSubmit = () => {
         const newCard = {
             question: this.state.questionName,
             answer:this.state.questionAnswer
         }
         const deckTitle = this.props.navigation.state.params.deckTitle
-        addNewCard(deckTitle, newCard)
-        this.props.navigation.goBack()
+        const {manualUpdate, manualUpdateDeck} = this.props.navigation.state.params
+        addNewCard(deckTitle, newCard).then(() => { 
+          manualUpdate();
+          manualUpdateDeck();
+        })
+        this.props.navigation.goBack() 
+       
     }
     onChangeQuestionName= (text) => {
        this.setState({questionName:text},  this.checkInputs)
