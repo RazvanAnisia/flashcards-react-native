@@ -30,6 +30,7 @@ export default class AddDeck extends React.Component {
   handleNewDeckTitleSubmit = () => {
     console.log('added deck')
     saveDeckTitle(this.state.titleName)
+    this.props.navigation.goBack()
   }
   checkInputs = () => {
     if(this.state.titleName !== ' ' && this.state.titleName ) {
@@ -39,6 +40,8 @@ export default class AddDeck extends React.Component {
     }
 }
   render() {
+  const  { screenProps } = this.props;
+ 
     return (
       <View style={styles.container}>
         <Text style={styles.newTitleText}>What is the title of your new deck?</Text>

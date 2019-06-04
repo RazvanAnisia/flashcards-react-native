@@ -21,7 +21,7 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           <StatusBar backgroundColor="#000000" barStyle="light-content"/>
-          <AppNavigator />
+          <AppNavigator screenProps={{test:'test'}}/>
         </View>
       );
     }

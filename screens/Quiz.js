@@ -84,7 +84,7 @@ finishedView = () => {
             </View>
             <View style={{ width: "30%", textAlign: "center", marginTop: 30 }}>
                      <Button
-                    title={`Back to ${deckTitle} deck`}  
+                    title={"Back to deck"}  
                     color="#000000"
                     onPress={()=> this.props.navigation.goBack() }/>
             </View>

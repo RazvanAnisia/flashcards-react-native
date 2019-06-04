@@ -48,14 +48,14 @@ const decks = {
   Angular: {
     title: 'Angular',
     questions: [
-      { id:generateID(),
-        question: 'What is Angular?',
-        answer: 'A library for managing user interfaces'
-      },
-      { id:generateID(),
-        question: 'Who created Angular?',
-        answer: 'Google'
-      }
+      // { id:generateID(),
+      //   question: 'What is Angular?',
+      //   answer: 'A library for managing user interfaces'
+      // },
+      // { id:generateID(),
+      //   question: 'Who created Angular?',
+      //   answer: 'Google'
+      // }
     ]
   },
 
@@ -81,12 +81,12 @@ export function getDeck (deckTitle) {
 
 export  function saveDeckTitle( deckTitle) {
     // take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title. 
-    AsyncStorage.getItem('decks').then((decks) => JSON.parse(decks))
+   return AsyncStorage.getItem('decks').then((decks) => JSON.parse(decks))
     .then((decks) =>  {
       decks[deckTitle]={}
       return decks;
     })
-    .then((newDeck) => AsyncStorage.setItem('decks', JSON.stringify(newDeck)).then( AsyncStorage.getItem('decks').then((res) =>JSON.parse(res)).then(res => res )) )
+    .then((newDeck) => AsyncStorage.setItem('decks', JSON.stringify(newDeck)).then( AsyncStorage.getItem('decks').then((res) =>JSON.parse(res)).then(res => console.log(res) )) )
     .catch((err) => console.log(err))
 }
 

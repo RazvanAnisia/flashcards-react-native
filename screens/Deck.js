@@ -6,6 +6,7 @@ class Deck extends React.Component {
   
   state = {
     currentDeck:null,
+    
   }
   componentDidMount() {
     deckTitle = this.props.navigation.state.params.currentDeck.title
@@ -45,25 +46,39 @@ class Deck extends React.Component {
       
    }
 
+   noCards = () => {
+     return (      
+        <Text style={{marginTop:100}}>Sorry there are no cards in this deck yet.Maybe add some?:)</Text>
+     )
+   }
    showDeck = () => {
     const currentDeck = this.state.currentDeck;
      return (
       <View style={[styles.container, { alignItems: "center" }]}>
         <Text style={styles.cardTitle}>{this.state.currentDeck.title}</Text>
-        <Text style={styles.cardNumber}>
+       {currentDeck.questions.length > 0
+        ? ( <Text style={styles.cardNumber}>
           {currentDeck.questions.length} cards
-        </Text>
+        </Text>)
+        : this.noCards()
+        }
+       
         <View style={{ width: "30%", textAlign: "center", marginTop: 300 }}>
           <Button onPress={()=>this.props.navigation.navigate('AddCard', {deckTitle:this.props.navigation.state.params.currentDeck.title ,  manualUpdate:this.props.navigation.state.params.manualUpdate, manualUpdateDeck:this.manualUpdateDeck})} 
            title="Add Card" color="#f4511e" />
         </View>
-        <View style={{ width: "30%", textAlign: "center", marginTop: 30 }}>
-          <Button
-            onPress={this.startQuiz}
-            title="Start Quiz"
-            color="#000000"
-          />
-        </View>
+         { currentDeck.questions.length > 0 
+         ? (
+          <View style={{ width: "30%", textAlign: "center", marginTop: 30 }}>
+            <Button
+              onPress={this.startQuiz}
+              title="Start Quiz"
+              color="#000000"
+            />
+          </View>
+         )
+         :null}
+       
         <View style={{ width: "30%", textAlign: "center", marginTop: 30 }}>
          <Text 
            onPress={this.handleDeleteDeck}

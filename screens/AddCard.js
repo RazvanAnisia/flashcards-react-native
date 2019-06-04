@@ -38,8 +38,9 @@ export default class AddCard extends React.Component {
         addNewCard(deckTitle, newCard).then(() => { 
           manualUpdate();
           manualUpdateDeck();
-        })
-        this.props.navigation.goBack() 
+          
+        }).then( this.props.navigation.goBack())
+        
        
     }
     onChangeQuestionName= (text) => {
