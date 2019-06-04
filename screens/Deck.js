@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, StyleSheet, View, Button} from "react-native";
 import { getDeck } from '../utils/helpers'
+import { connect} from 'react-redux'
 
 class Deck extends React.Component {
   
@@ -11,8 +12,9 @@ class Deck extends React.Component {
   componentDidMount() {
     deckTitle = this.props.navigation.state.params.currentDeck.title
      //async
-     getDeck(deckTitle).then((res) => { 
-      this.setState({currentDeck:res})})
+    //  getDeck(deckTitle).then((res) => { 
+    //   this.setState({currentDeck:res})})
+    this.setState({currentDeck:this.props.deck})
   }
 
   static navigationOptions = ({navigation}) => {
@@ -35,12 +37,12 @@ class Deck extends React.Component {
     this.props.navigation.navigate('Quiz', {currentDeck:this.props.navigation.state.params.currentDeck})
    }
 
-   manualUpdateDeck = () => {
-    deckTitle = this.props.navigation.state.params.currentDeck.title
-    //async
-    getDeck(deckTitle).then((res) => { 
-     this.setState({currentDeck:res})})
-   } 
+  //  manualUpdateDeck = () => {
+  //   deckTitle = this.props.navigation.state.params.currentDeck.title
+  //   //async
+  //   getDeck(deckTitle).then((res) => { 
+  //    this.setState({currentDeck:res})})
+  //  } 
 
    handleDeleteDeck = () => {
       
@@ -64,7 +66,7 @@ class Deck extends React.Component {
         }
        
         <View style={{ width: "30%", textAlign: "center", marginTop: 300 }}>
-          <Button onPress={()=>this.props.navigation.navigate('AddCard', {deckTitle:this.props.navigation.state.params.currentDeck.title ,  manualUpdate:this.props.navigation.state.params.manualUpdate, manualUpdateDeck:this.manualUpdateDeck})} 
+          <Button onPress={()=>this.props.navigation.navigate('AddCard', {deckTitle:this.props.navigation.state.params.currentDeck.title })} 
            title="Add Card" color="#f4511e" />
         </View>
          { currentDeck.questions.length > 0 
@@ -91,7 +93,7 @@ class Deck extends React.Component {
    }
 
   render() {
-   
+    console.log(this.props.deck)
     return (
       <View style={[styles.container, { alignItems: "center" }]}>
        { this.state.currentDeck 
@@ -125,4 +127,11 @@ const styles = StyleSheet.create({
     }
   });
 
-export default Deck;
+
+function mapStateToProps (state,props) {
+    deckTitle = props.navigation.state.params.currentDeck.title
+    return {deck:state[deckTitle]}
+}
+    
+export default connect(mapStateToProps)(Deck);
+

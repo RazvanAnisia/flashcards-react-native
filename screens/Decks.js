@@ -15,16 +15,17 @@ import {
 //just for demo
 import   { getDecks }  from '../utils/helpers'
 import Deck from './Deck'
+import { connect} from 'react-redux'
+import { receiveDecks } from  '../actions'
 
  class Decks extends React.Component {
     state = {
       decks:'',
       currentDeck:null,
+      loading:true
    }
  
-
-
-  static navigationOptions = {
+   static navigationOptions = {
     title: 'Study Cards',
     headerStyle: {
       backgroundColor: '#f4511e',
@@ -40,8 +41,11 @@ import Deck from './Deck'
 
   componentDidMount()  {
     //async
+
     getDecks().then((res) => { 
-      this.setState({decks:res})})
+      this.props.dispatch(receiveDecks(res))
+      })
+      .then(()=>this.setState({loading:true}))
     }
   
   manualUpdate = () => {
@@ -53,16 +57,17 @@ import Deck from './Deck'
 
   currentDeck = (newDeck) => {
     this.setState({ currentDeck:newDeck })
-    this.props.navigation.navigate('Deck' , { currentDeck: newDeck, manualUpdate:this.manualUpdate })
+    this.props.navigation.navigate('Deck' , { currentDeck: newDeck })
+    //manualUpdate:this.manualUpdate
   }
   
   render() {
-    
-   //console.log(this.state.decks)
+      // console.log(this.props.decks)
+   //console.log(this.props.decks)
     const decks = (
       <ScrollView style={styles.container}>
         { 
-          Object.values(this.state.decks).map((deck, index) => 
+          Object.values(this.props.decks).map((deck, index) => 
            (<TouchableOpacity
               onPress={()=>this.currentDeck(deck)}
               key={index}
@@ -84,8 +89,12 @@ import Deck from './Deck'
  
 }
 
+function mapStateToProps (state) {
+  return {decks:state}
+}
 
-export default Decks;
+
+export default connect(mapStateToProps)(Decks);
 
 
 

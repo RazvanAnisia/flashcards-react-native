@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, TextInput, Text, Button } from 'react-native';
 import { addNewCard } from '../utils/helpers'
+import { createCard } from '../actions'
+import { connect} from 'react-redux'
 
-export default class AddCard extends React.Component {
+
+class AddCard extends React.Component {
 
     state = {
         questionName:null,
@@ -34,12 +37,14 @@ export default class AddCard extends React.Component {
             answer:this.state.questionAnswer
         }
         const deckTitle = this.props.navigation.state.params.deckTitle
-        const {manualUpdate, manualUpdateDeck} = this.props.navigation.state.params
-        addNewCard(deckTitle, newCard).then(() => { 
-          manualUpdate();
-          manualUpdateDeck();
+        //const {manualUpdate, manualUpdateDeck} = this.props.navigation.state.params
+
+        addNewCard(deckTitle, newCard)
+        this.props.dispatch(createCard(deckTitle, newCard.question, newCard.answer))
+          // manualUpdate();
+          // manualUpdateDeck();
           
-        }).then( this.props.navigation.goBack())
+        this.props.navigation.goBack()
         
        
     }
@@ -85,6 +90,15 @@ export default class AddCard extends React.Component {
     );
   }
 }
+
+
+
+function mapStateToProps (state) {
+  return {decks:state}
+}
+
+
+export default connect(mapStateToProps)(AddCard);
 
 const styles = StyleSheet.create({
   container: {

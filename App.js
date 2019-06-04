@@ -2,10 +2,14 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import reducer from './reducers'
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
+
   };
 
   render() {
@@ -19,10 +23,12 @@ export default class App extends React.Component {
       );
     } else {
       return (
+        <Provider store={createStore(reducer)}>
         <View style={styles.container}>
           <StatusBar backgroundColor="#000000" barStyle="light-content"/>
           <AppNavigator screenProps={{test:'test'}}/>
         </View>
+        </Provider>
       );
     }
   }
