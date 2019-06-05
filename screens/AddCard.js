@@ -39,24 +39,20 @@ class AddCard extends React.Component {
             answer:this.state.questionAnswer
         }
         const deckTitle = this.props.navigation.state.params.deckTitle
-        //const {manualUpdate, manualUpdateDeck} = this.props.navigation.state.params
-
         addNewCard(deckTitle, newCard)
         this.props.dispatch(createCard(deckTitle, newCard.question, newCard.answer))
-          // manualUpdate();
-          // manualUpdateDeck();
-          
         this.props.navigation.goBack()
-        
-       
     }
+
     onChangeQuestionName= (text) => {
        this.setState({questionName:text},  this.checkInputs)
        
     }
+
     onChangeQuestionAnswer= (text) => {
         this.setState({questionAnswer:text}, this.checkInputs) 
     }
+
     checkInputs = () => {
         if(this.state.questionAnswer && this.state.questionAnswer !== '' && this.state.questionName && this.state.questionName !== '') {
           this.setState({disabledBtn:false})
@@ -69,27 +65,25 @@ class AddCard extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-      
-       <Text style={styles.newCardText}>Add a new Card</Text>
-       <TextInput
-        onChangeText={this.onChangeQuestionName}
-        style={styles.input}
-        value={this.state.questionName}
-      />
-      <TextInput
-        onChangeText={this.onChangeQuestionAnswer}
-        style={styles.input}
-        value={this.state.questionAnswer}
-      />
-      <View style={styles.submitBtn} >
-       <Button
-            disabled={this.state.disabledBtn}
-            title="Submit"
-            color="#000000"
-            onPress={this.addNewCardSubmit}
-          />
-      </View>
-    
+        <Text style={styles.newCardText}>Add a new Card</Text>
+        <TextInput
+          onChangeText={this.onChangeQuestionName}
+          style={styles.input}
+          value={this.state.questionName}
+        />
+        <TextInput
+          onChangeText={this.onChangeQuestionAnswer}
+          style={styles.input}
+          value={this.state.questionAnswer}
+        />
+        <View style={styles.submitBtn} >
+        <Button
+              disabled={this.state.disabledBtn}
+              title="Submit"
+              color="#000000"
+              onPress={this.addNewCardSubmit}
+            />
+        </View>
      </KeyboardAvoidingView>
     );
   }
@@ -100,8 +94,6 @@ class AddCard extends React.Component {
 function mapStateToProps (state) {
   return {decks:state}
 }
-
-
 export default connect(mapStateToProps)(AddCard);
 
 const styles = StyleSheet.create({

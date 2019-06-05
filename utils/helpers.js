@@ -84,34 +84,32 @@ export function getDecks() {
 export function getDeck (deckTitle) {
  //get a specific deck
  return AsyncStorage.getItem('decks').then((decks) => JSON.parse(decks))
- .then((decks) => decks[deckTitle])
- .catch((err) => alert(err))
+        .then((decks) => decks[deckTitle])
+        .catch((err) => alert(err))
 }
 
 export  function saveDeckTitle( deckTitle) {
     // take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title. 
    return AsyncStorage.getItem('decks').then((decks) => JSON.parse(decks))
-    .then((decks) =>  {
-      decks[deckTitle]={
-        title:deckTitle,
-        questions:[]
-      }
-      return decks;
-    })
-    .then((newDeck) => AsyncStorage.setItem('decks', JSON.stringify(newDeck)).then( AsyncStorage.getItem('decks').then((res) =>JSON.parse(res)).then(res =>res)) )
-    .catch((err) => alert(err))
+        .then((decks) =>  {
+          decks[deckTitle]={
+            title:deckTitle,
+            questions:[]
+          }
+          return decks;
+        })
+        .then((newDeck) => AsyncStorage.setItem('decks', JSON.stringify(newDeck)))
+        .catch((err) => alert(err))
 }
 
 export function addNewCard(deckTitle, newCard) {
-  
   return  AsyncStorage.getItem('decks').then((decks) => JSON.parse(decks))
-  .then((decks) =>  {
-     decks[deckTitle].questions.push(newCard)    
-     return decks;
-  })
-  .then((newCard) => AsyncStorage.setItem('decks', JSON.stringify(newCard)).then( AsyncStorage.getItem('decks').then((res) =>JSON.parse(res)).then(res => res )) )
-  .catch((err) => alert(err))
-   
+          .then((decks) =>  {
+            decks[deckTitle].questions.push(newCard)    
+            return decks;
+          })
+          .then((newCard) => AsyncStorage.setItem('decks', JSON.stringify(newCard)))
+          .catch((err) => alert(err))
 }
 
 

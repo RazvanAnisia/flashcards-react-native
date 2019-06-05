@@ -4,12 +4,7 @@ import { getDeck } from '../utils/helpers'
 import { connect} from 'react-redux'
 
 class Deck extends React.Component {
-  
-   componentDidMount() {
-    deckTitle = this.props.navigation.state.params.currentDeck.title
    
-  }
-
   static navigationOptions = ({navigation}) => {
     const { currentDeck } = navigation.state.params;
      return {
@@ -30,10 +25,7 @@ class Deck extends React.Component {
     this.props.navigation.navigate('Quiz', {currentDeck:this.props.navigation.state.params.currentDeck})
    }
  
-   handleDeleteDeck = () => {
-      
-   }
-
+   
    noCards = () => {
      return (      
         <Text style={{marginTop:100, fontSize:18,textAlign:'center'}}>Sorry there are no cards in this deck yet.Maybe add some? :)</Text>
@@ -52,10 +44,9 @@ class Deck extends React.Component {
         </Text>)
         : this.noCards()
         }
-       
         <View style={{ width: "30%", textAlign: "center", marginTop: 100 }}>
           <Button onPress={()=>this.props.navigation.navigate('AddCard', {deckTitle:deckTitle })} 
-           title="Add Card" color="#f4511e" />
+           title="Add Card" color="#f4511e"  />
         </View>
          { currentDeck.questions.length > 0 
          ? (

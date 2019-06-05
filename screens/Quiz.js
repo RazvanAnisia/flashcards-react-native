@@ -119,7 +119,8 @@ finishedView = () => {
             {!this.state.finishedDeck
               ? (deck.questions.map((question,index,array) =>
                 this.state.currentIndex === index 
-                ? (<View  style={{ flex:1, textAlign: "center", alignItems:'center'}} key={index}>
+                ? (<View  style={{ flex:1, textAlign: "center", alignItems:'center'}} 
+                     key={index}>
                     <Text>{index + 1}/{array.length}</Text>
                     <Text style={styles.questionText}>
                     {this.state.showAnswer ? question.answer : question.question}

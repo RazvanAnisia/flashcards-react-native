@@ -2,7 +2,6 @@
 import React from 'react';
 import { createStackNavigator, createAppContainer, createSwitchNavigator, createBottomTabNavigator} from 'react-navigation';
 import Deck from '../screens/Deck'
-import MainTabNavigator from './MainTabNavigator';
 import { white } from 'ansi-colors';
 import AddCard from '../screens/AddCard'
 import Decks from '../screens/Decks'
@@ -10,53 +9,26 @@ import Quiz from '../screens/Quiz'
 import AddDeck from '../screens/AddDeck';
 import { Ionicons ,  MaterialIcons } from '@expo/vector-icons';
 
-// const MainNavigator = createStackNavigator(
-//   { Main:MainTabNavigator,
-//     Deck: Deck,  
-//     AddCard:AddCard,
-//     Quiz:Quiz },
-//    {  initialRouteName: "Main",
-//      navigationOptions: {
-//       headerTintColor: 'red',
-//       headerStyle: { backgroundColor: '#ffffff' },
-//       headerTitleStyle: { fontWeight: "bold" }
-//      }
-//   }
-//  );
- 
-//  DeckView.navigationOptions = {
-//    tabBarLabel: 'Deck',
-//    tabBarIcon: ({ focused }) => (
-//      <TabBarIcon
-//        focused={focused}
-//        name={
-//          Platform.OS === 'ios'
-//            ? `ios-information-circle${focused ? '' : '-outline'}`
-//            : 'md-information-circle'
-//        }
-//      />
-//    ),
-//  };
-
-
-
-
 const Tabs = createBottomTabNavigator(
   {
     Decks: {
       screen: Decks,
       navigationOptions: {
         tabBarOptions : {
-          inactiveTintColor:'#000000',
-          activeTintColor:'#ffffff',
+          inactiveTintColor:'#ffffff',
+          activeTintColor:'#000000',
+          labelStyle:{
+            fontSize:15,
+            fontWeight:'bold'
+          },
           style: {
             backgroundColor: '#f4511e',
-            height:70,
+            height:65,
           }
         },
         tabBarLabel: "Decks",
         tabBarIcon: ({ focused }) => (
-          <MaterialIcons color={'#ffffff'} size={30}
+          <MaterialIcons color={ focused ? '#000000' :'#ffffff' } size={30}
           name='library-books'/>      
         )
       }
@@ -65,16 +37,20 @@ const Tabs = createBottomTabNavigator(
       screen: AddDeck,
       navigationOptions: {
         tabBarOptions : {
-          inactiveTintColor:'#000000',
-          activeTintColor:'#ffffff',
+          inactiveTintColor:'#ffffff',
+          activeTintColor:'#000000',
+          labelStyle:{
+            fontSize:15,
+            fontWeight:'bold'
+          },
           style: {
             backgroundColor: '#f4511e',
-            height:70,
+            height:65,
           }
         },
         tabBarLabel: "New Deck",
         tabBarIcon: ({ focused }) => (
-          <Ionicons color={'#ffffff'}  size={30}
+          <Ionicons color={ focused ? '#000000' :'#ffffff' }  size={30}
            name='md-add-circle'/>
         ),
       }
