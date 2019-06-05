@@ -7,21 +7,27 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  Alert,
   View,
   createStackNavigator ,
-  createAppContainer
+  createAppContainer,
+  Animated,
+  ActivityIndicator,
 } from 'react-native';
 
 import { getDecks }  from '../utils/helpers'
 import { connect} from 'react-redux'
 import { receiveDecks } from  '../actions'
 
+
+
+const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+
  class Decks extends React.Component {
     state = {
       decks:'',
-      currentDeck:null,
-      loading:true
+      currentDeck:null,      
+      fadeAnim: new Animated.Value(1),
+      ready:false
    }
  
    static navigationOptions = {
@@ -41,45 +47,37 @@ import { receiveDecks } from  '../actions'
   componentDidMount()  {
     //async
     getDecks().then((res) => { 
-      this.props.dispatch(receiveDecks(res))
-      })
-      .then(()=>this.setState({loading:true}))
+      this.props.dispatch(receiveDecks(res))})
+      .then(()=>this.setState({ready:true}))
     }
   
-  manualUpdate = () => {
-     //async
-     getDecks().then((res) => { 
-      this.setState({decks:res})})
-    }
-  
-
   currentDeck = (newDeck) => {
     this.setState({ currentDeck:newDeck })
     this.props.navigation.navigate('Deck' , { currentDeck: newDeck })
-    //manualUpdate:this.manualUpdate
   }
   
   render() {
-      // console.log(this.props.decks)
-   //console.log(this.props.decks)
+    let { fadeAnim } = this.state
     const decks = (
       <ScrollView style={styles.container}>
-        { 
-          Object.values(this.props.decks).map((deck, index) => 
+         <View style={[{alignItems:'center'},{opacity:fadeAnim}]}> 
+          { Object.values(this.props.decks).map((deck, index) => 
            (<TouchableOpacity
-              onPress={()=>this.currentDeck(deck)}
+              onPress={()=> this.currentDeck(deck)}
               key={index}
               style={styles.card}>
               <Text style={styles.cardTitle}> {deck.title}</Text>
               <Text style={styles.cardNumber}> {deck.questions.length} cards</Text>
             </TouchableOpacity>)
-        )
-      }
+          )
+        
+         }
+        </View>
       </ScrollView>
     )
     return (
       <View style={{flex:1}}>
-          {decks}
+          {this.state.ready ? decks : <ActivityIndicator size="large" color="#f4511e" style={{marginTop:300}}/>}
       </View>
      
     );
@@ -99,20 +97,22 @@ export default connect(mapStateToProps)(Decks);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#eee',
+    paddingTop:20
   },
    card: {
     flex:1,
-    height:150,
-    borderBottomWidth: 1.5 ,
-    borderBottomColor:'#000000',
-    
+    width:'60%',
+    height:120,
+    marginTop:5,
+    marginBottom:5,
+    backgroundColor:'#ffffff'
   },
   cardTitle: {
     fontSize:30,
     fontWeight:'bold',
     textAlign:'center',
-    marginTop:50,
+    marginTop:20,
     color:'#f4511e'
   },
   cardNumber: {

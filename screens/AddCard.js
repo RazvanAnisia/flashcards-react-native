@@ -4,6 +4,8 @@ import { addNewCard } from '../utils/helpers'
 import { createCard } from '../actions'
 import { connect} from 'react-redux'
 
+import {KeyboardAvoidingView} from 'react-native';
+
 
 class AddCard extends React.Component {
 
@@ -66,7 +68,8 @@ class AddCard extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+      
        <Text style={styles.newCardText}>Add a new Card</Text>
        <TextInput
         onChangeText={this.onChangeQuestionName}
@@ -86,7 +89,8 @@ class AddCard extends React.Component {
             onPress={this.addNewCardSubmit}
           />
       </View>
-     </View>
+    
+     </KeyboardAvoidingView>
     );
   }
 }

@@ -4,6 +4,7 @@ import {saveDeckTitle} from '../utils/helpers'
 import { createDeck } from '../actions'
 import { connect} from 'react-redux'
 
+
 class AddDeck extends React.Component {
   static navigationOptions = {
     title: 'Add Deck',
@@ -84,7 +85,8 @@ const styles = StyleSheet.create({
   },
   newTitleText: {
     fontWeight:'bold',
-    fontSize:30
+    fontSize:30,
+    textAlign:'center'
   },
   submitBtn:{
     marginTop:100,

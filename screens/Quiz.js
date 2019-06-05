@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, StyleSheet, View, Button} from "react-native";
 import { connect} from 'react-redux'
+import { clearLocalNotification, setLocalNotification } from "../utils/helpers";
 
 class Quiz extends React.Component {
   
@@ -43,13 +44,32 @@ nextQuestion = (answerType) => {
         this.setState({currentIndex:newIndex})
     }else{
         this.setState({finishedDeck:true})
+        //if the user has completed the deck, then remove the notification set up
+        clearLocalNotification();
+        //Set one for the next day
+        setLocalNotification();
     }
 }
 
 showAnswer = () => {
     this.setState({showAnswer:!this.state.showAnswer})
 }
-
+showButtons = () => {
+  return (
+  <View style={{ flex:1, textAlign: "center", alignItems:'center'}}>
+    <View style={{ width: "30%", textAlign: "center", alignItems:'center', marginTop: 30 }}>
+    <Button onPress={() =>this.nextQuestion('correct')} 
+      title="Correct" color="#19e8b0"/>
+    </View>
+    <View style={{ width: "30%", textAlign: "center", marginTop: 30 }}>
+      <Button
+          onPress={() =>this.nextQuestion('incorrect')}
+          title="Incorrect"
+          color="#f70707"/>
+    </View>
+  </View>
+  )
+}
 resetQuiz = () => {
     this.setState({ 
         currentIndex:0,
@@ -59,6 +79,7 @@ resetQuiz = () => {
         finishedDeck:false}
       )
 }
+
 finishedView = () => {
     const totalQuestions = this.props.deck.questions.length
     const correctAnswers = this.state.correctAnswers
@@ -98,7 +119,7 @@ finishedView = () => {
             {!this.state.finishedDeck
               ? (deck.questions.map((question,index,array) =>
                 this.state.currentIndex === index 
-                ? (<View  key={index}>
+                ? (<View  style={{ flex:1, textAlign: "center", alignItems:'center'}} key={index}>
                     <Text>{index + 1}/{array.length}</Text>
                     <Text style={styles.questionText}>
                     {this.state.showAnswer ? question.answer : question.question}
@@ -115,16 +136,7 @@ finishedView = () => {
              :this.finishedView()    
             }
           </View>
-            <View style={{ width: "30%", textAlign: "center", marginTop: 30 }}>
-              <Button onPress={() =>this.nextQuestion('correct')} 
-              title="Correct" color="#19e8b0"/>
-            </View>
-            <View style={{ width: "30%", textAlign: "center", marginTop: 30 }}>
-              <Button
-                  onPress={() =>this.nextQuestion('incorrect')}
-                  title="Incorrect"
-                  color="#f75151"/>
-            </View>
+           {!this.state.finishedDeck ? this.showButtons() : null}
       </View>
     );
   }
@@ -146,16 +158,18 @@ const styles = StyleSheet.create({
     },
     questionsContainer:{
         height:300,
-        backgroundColor:'#19e8b0',
+        backgroundColor:'#00bbff',
         width:'100%',
         color:'#ffffff',
         alignItems:'center',
-        paddingBottom:50
+        paddingBottom:50,
+        paddingTop:20
     },
     questionText:{
         fontSize:20,
         fontWeight:'bold',
-        maxWidth:'70%'
+        maxWidth:'70%',
+        textAlign:'center'
     },
     score: {
         fontSize:30,
@@ -163,8 +177,9 @@ const styles = StyleSheet.create({
         fontWeight:'bold'
     },
     finishedView: {
-        marginTop:50,
+        marginTop:20,
         justifyContent:'center',
+        alignItems:'center'
     },
     finishedText:{
         fontSize:20

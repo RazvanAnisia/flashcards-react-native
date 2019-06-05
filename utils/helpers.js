@@ -1,21 +1,10 @@
 import { AsyncStorage } from 'react-native'
+import { Notifications, Permissions } from "expo";
 
- 
 function generateID () {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
   }
 
-
-export function newDeck (deckTitle) {
-    return {
-        deckTitle: {
-            title: deckTitle,
-            questions: [
-                
-            ]
-        }
-    }
-}
 
 const decks = {
   React: {
@@ -48,14 +37,33 @@ const decks = {
   Angular: {
     title: 'Angular',
     questions: [
-      // { id:generateID(),
-      //   question: 'What is Angular?',
-      //   answer: 'A library for managing user interfaces'
-      // },
-      // { id:generateID(),
-      //   question: 'Who created Angular?',
-      //   answer: 'Google'
-      // }
+      { id:generateID(),
+        question: 'What is Angular?',
+        answer: 'A library for managing user interfaces'
+      },
+      { id:generateID(),
+        question: 'Who created Angular?',
+        answer: 'Google'
+      }
+    ]
+  },
+  Java: {
+    title: 'Java',
+    questions: [
+      
+    ]
+  },
+  PHP: {
+    title: 'PHP',
+    questions: [
+      { id:generateID(),
+        question: 'What is PHP?',
+        answer: 'A backend language'
+      },
+      { id:generateID(),
+        question: 'Where is it used?',
+        answer: 'On the server'
+      }
     ]
   },
 
@@ -63,8 +71,9 @@ const decks = {
 
 //Async Storage
 
-//Initiate data
+// Set Initiate data
 AsyncStorage.setItem('decks', JSON.stringify(decks))
+
 
 export function getDecks() {
     //return all the decks along with their titles
@@ -76,7 +85,7 @@ export function getDeck (deckTitle) {
  //get a specific deck
  return AsyncStorage.getItem('decks').then((decks) => JSON.parse(decks))
  .then((decks) => decks[deckTitle])
- .catch((err) => console.log(err))
+ .catch((err) => alert(err))
 }
 
 export  function saveDeckTitle( deckTitle) {
@@ -90,32 +99,29 @@ export  function saveDeckTitle( deckTitle) {
       return decks;
     })
     .then((newDeck) => AsyncStorage.setItem('decks', JSON.stringify(newDeck)).then( AsyncStorage.getItem('decks').then((res) =>JSON.parse(res)).then(res =>res)) )
-    .catch((err) => console.log(err))
+    .catch((err) => alert(err))
 }
 
 export function addNewCard(deckTitle, newCard) {
   
   return  AsyncStorage.getItem('decks').then((decks) => JSON.parse(decks))
   .then((decks) =>  {
-     decks[deckTitle].questions.push(newCard)
-    // decks = {
-    //   ...decks[deckTitle],
-    //   questions: [
-    //     ...decks[deckTitle].questions,
-    //     { question: newCard.question, answer:newCard.answer}
-    //   ]
-    // } 
-    return decks;
+     decks[deckTitle].questions.push(newCard)    
+     return decks;
   })
   .then((newCard) => AsyncStorage.setItem('decks', JSON.stringify(newCard)).then( AsyncStorage.getItem('decks').then((res) =>JSON.parse(res)).then(res => res )) )
-  .catch((err) => console.log(err))
+  .catch((err) => alert(err))
    
 }
 
 
+
 //Notifications
+
+const NOTIFICATION_KEY = "StudyCards:notifications"
+
 export function clearLocalNotification () {
-    return AsyncStorage.removeItem(NOTIFICATION_KEY)
+    return AsyncStorage.removeItem()
       .then(Notifications.cancelAllScheduledNotificationsAsync)
 }
 
@@ -135,3 +141,28 @@ export function createNotification () {
       }
     }
   }
+
+  export const setLocalNotification = () => {  
+    AsyncStorage.getItem(NOTIFICATION_KEY)
+      .then(JSON.parse)
+      .then(data => {
+        if (data === null) {
+          Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
+            if (status === "granted") {
+              Notifications.cancelAllScheduledNotificationsAsync();
+              let tomorrow = new Date();
+              tomorrow.setDate(tomorrow.getDate() + 1);
+              tomorrow.setHours(12);
+              tomorrow.setMinutes(30);
+              
+              Notifications.scheduleLocalNotificationAsync(createNotification(), {
+                time: tomorrow,
+                repeat: "day"
+              });
+  
+              AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
+            }
+          });
+        }
+      });
+}

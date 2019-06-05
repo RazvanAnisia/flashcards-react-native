@@ -36,7 +36,7 @@ class Deck extends React.Component {
 
    noCards = () => {
      return (      
-        <Text style={{marginTop:100, fontSize:18}}>Sorry there are no cards in this deck yet.Maybe add some? :)</Text>
+        <Text style={{marginTop:100, fontSize:18,textAlign:'center'}}>Sorry there are no cards in this deck yet.Maybe add some? :)</Text>
      )
    }
    showDeck = () => {
@@ -53,7 +53,7 @@ class Deck extends React.Component {
         : this.noCards()
         }
        
-        <View style={{ width: "30%", textAlign: "center", marginTop: 300 }}>
+        <View style={{ width: "30%", textAlign: "center", marginTop: 100 }}>
           <Button onPress={()=>this.props.navigation.navigate('AddCard', {deckTitle:deckTitle })} 
            title="Add Card" color="#f4511e" />
         </View>
@@ -70,11 +70,11 @@ class Deck extends React.Component {
          :null}
        
         <View style={{ width: "30%", textAlign: "center", marginTop: 30 }}>
-         <Text 
+         {/* <Text 
            onPress={this.handleDeleteDeck}
            style={styles.deleteText}>
            Delete Deck
-          </Text>
+          </Text> */}
         </View>
         </View>    
      )
