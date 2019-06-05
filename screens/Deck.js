@@ -29,21 +29,14 @@ class Deck extends React.Component {
    startQuiz = () => {
     this.props.navigation.navigate('Quiz', {currentDeck:this.props.navigation.state.params.currentDeck})
    }
-
-  //  manualUpdateDeck = () => {
-  //   deckTitle = this.props.navigation.state.params.currentDeck.title
-  //   //async
-  //   getDeck(deckTitle).then((res) => { 
-  //    this.setState({currentDeck:res})})
-  //  } 
-
+ 
    handleDeleteDeck = () => {
       
    }
 
    noCards = () => {
      return (      
-        <Text style={{marginTop:100}}>Sorry there are no cards in this deck yet.Maybe add some?:)</Text>
+        <Text style={{marginTop:100, fontSize:18}}>Sorry there are no cards in this deck yet.Maybe add some? :)</Text>
      )
    }
    showDeck = () => {
@@ -88,7 +81,6 @@ class Deck extends React.Component {
    }
 
   render() {
-    console.log(this.props.deck)
     return (
       <View style={[styles.container, { alignItems: "center" }]}>
        { this.props.deck
@@ -99,7 +91,13 @@ class Deck extends React.Component {
   }
 }
 
+function mapStateToProps (state,props) {
+  deckTitle = props.navigation.state.params.currentDeck.title
+  return {deck:state[deckTitle]}
+}
+  
 
+export default connect(mapStateToProps)(Deck);
 const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -123,10 +121,5 @@ const styles = StyleSheet.create({
   });
 
 
-function mapStateToProps (state,props) {
-    deckTitle = props.navigation.state.params.currentDeck.title
-    return {deck:state[deckTitle]}
-}
-    
-export default connect(mapStateToProps)(Deck);
+
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, StyleSheet, View, Button} from "react-native";
+import { connect} from 'react-redux'
 
 class Quiz extends React.Component {
   
@@ -20,32 +21,27 @@ class Quiz extends React.Component {
      }
   }   
 
-  state={
-      //handle if there are no questions in the deck yet
+  state = {
     currentIndex:0,
-    questionsInDeck:this.props.navigation.state.params.currentDeck.questions.length  ,
-    showAnswer:false,
     correctAnswers:0,
     incorrectAnswers:0,
+    showAnswer:false,
     finishedDeck:false
   }
   
 nextQuestion = (answerType) => {
-   if(answerType === 'correct'){
-     this.setState((prevState) => ({
-        correctAnswers: prevState.correctAnswers + 1}))
-   }else{
-        this.setState((prevState) => ({
-            incorrectAnswers: prevState.incorrectAnswers + 1
-        })); 
-   }   
-    if(this.state.currentIndex < this.state.questionsInDeck - 1 ){
+    if(answerType === 'correct'){
+      this.setState((prevState) => ({
+          correctAnswers: prevState.correctAnswers + 1}))
+    }else{
+          this.setState((prevState) => ({
+              incorrectAnswers: prevState.incorrectAnswers + 1
+          })); 
+    }   
+    if(this.state.currentIndex < this.props.deck.questions.length - 1 ){
         const newIndex  = this.state.currentIndex + 1
         this.setState({currentIndex:newIndex})
-        
-        // console.log(this.state.questionsInDeck)
-    }else {
-        // this.props.navigation.goBack()
+    }else{
         this.setState({finishedDeck:true})
     }
 }
@@ -61,15 +57,15 @@ resetQuiz = () => {
         correctAnswers:0,
         incorrectAnswers:0,
         finishedDeck:false}
-        )
+      )
 }
 finishedView = () => {
-    const totalQuestions = this.state.questionsInDeck
+    const totalQuestions = this.props.deck.questions.length
     const correctAnswers = this.state.correctAnswers
     const score = correctAnswers / totalQuestions  * 100  
-    const deckTitle = this.props.navigation.state.params.currentDeck.title
-    const finishedView = ( 
-        <View style={styles.finishedView} >
+
+    const finishedView = 
+    (<View style={styles.finishedView} >
             <Text style={styles.finishedText} >You got a score of <Text style={styles.score}>
                 {score.toFixed(0)}%</Text>
             </Text>
@@ -88,14 +84,14 @@ finishedView = () => {
                     color="#000000"
                     onPress={()=> this.props.navigation.goBack() }/>
             </View>
-        </View>
-    )
+     </View>)
+
     return finishedView;
 }
  
   render() {
-      const deck = this.props.navigation.state.params.currentDeck;
-      
+    const deck = this.props.deck;
+
     return (
       <View style={[styles.container, { alignItems: "center" }]}>
           <View style={styles.questionsContainer}>
@@ -113,29 +109,34 @@ finishedView = () => {
                             color="#f4511e"
                             onPress={this.showAnswer}/>
                     </View>
-                    </View>
-                    )
-                :null)
+                  </View>)
+                : null)
               )
-             : this.finishedView()    
+             :this.finishedView()    
             }
           </View>
             <View style={{ width: "30%", textAlign: "center", marginTop: 30 }}>
-            <Button onPress={() =>this.nextQuestion('correct')} 
-            title="Correct" color="#19e8b0"/>
+              <Button onPress={() =>this.nextQuestion('correct')} 
+              title="Correct" color="#19e8b0"/>
             </View>
             <View style={{ width: "30%", textAlign: "center", marginTop: 30 }}>
-            <Button
-                onPress={() =>this.nextQuestion('incorrect')}
-                title="Incorrect"
-                color="#f75151"
-            />
+              <Button
+                  onPress={() =>this.nextQuestion('incorrect')}
+                  title="Incorrect"
+                  color="#f75151"/>
             </View>
       </View>
     );
   }
 }
 
+function mapStateToProps (state,props) {
+    deckTitle = props.navigation.state.params.currentDeck.title
+    return {deck:state[deckTitle]}
+}
+
+
+export default connect(mapStateToProps)(Quiz);
 
 const styles = StyleSheet.create({
     container: {
@@ -170,4 +171,3 @@ const styles = StyleSheet.create({
     }
   });
 
-export default Quiz;
