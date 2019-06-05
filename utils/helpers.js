@@ -83,10 +83,13 @@ export  function saveDeckTitle( deckTitle) {
     // take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title. 
    return AsyncStorage.getItem('decks').then((decks) => JSON.parse(decks))
     .then((decks) =>  {
-      decks[deckTitle]={}
+      decks[deckTitle]={
+        title:deckTitle,
+        questions:[]
+      }
       return decks;
     })
-    .then((newDeck) => AsyncStorage.setItem('decks', JSON.stringify(newDeck)).then( AsyncStorage.getItem('decks').then((res) =>JSON.parse(res)).then(res => console.log(res) )) )
+    .then((newDeck) => AsyncStorage.setItem('decks', JSON.stringify(newDeck)).then( AsyncStorage.getItem('decks').then((res) =>JSON.parse(res)).then(res =>res)) )
     .catch((err) => console.log(err))
 }
 

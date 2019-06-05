@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, TextInput, Text, Button } from 'react-native';
 import {saveDeckTitle} from '../utils/helpers'
+import { createDeck } from '../actions'
+import { connect} from 'react-redux'
 
-export default class AddDeck extends React.Component {
+class AddDeck extends React.Component {
   static navigationOptions = {
     title: 'Add Deck',
     headerStyle: {
@@ -26,10 +28,13 @@ export default class AddDeck extends React.Component {
     this.setState({titleName:text},  this.checkInputs)
    
   }
-
+  resetState = () => {
+    this.setState({titleName:null})
+  }
   handleNewDeckTitleSubmit = () => {
-    console.log('added deck')
+    this.props.dispatch(createDeck(this.state.titleName))
     saveDeckTitle(this.state.titleName)
+    this.resetState();
     this.props.navigation.goBack()
   }
   checkInputs = () => {
@@ -40,7 +45,6 @@ export default class AddDeck extends React.Component {
     }
 }
   render() {
-  const  { screenProps } = this.props;
  
     return (
       <View style={styles.container}>
@@ -63,6 +67,14 @@ export default class AddDeck extends React.Component {
   }
 }
 
+
+
+function mapStateToProps (state) {
+  return {decks:state}
+}
+
+
+export default connect(mapStateToProps)(AddDeck);
 const styles = StyleSheet.create({
   container: {
     flex: 1,

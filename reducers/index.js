@@ -12,10 +12,9 @@ const decks = (state = {}, action) => {
     case CREATE_DECK: {      
       return {
         ...state,
-        [action.id]: {
-          id: action.id,
-          name: action.name,
-          cards: []
+        [action.title]: {
+          title: action.title,
+          questions: []
         }
       };
     }

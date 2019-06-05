@@ -12,9 +12,8 @@ import {
   createStackNavigator ,
   createAppContainer
 } from 'react-native';
-//just for demo
-import   { getDecks }  from '../utils/helpers'
-import Deck from './Deck'
+
+import { getDecks }  from '../utils/helpers'
 import { connect} from 'react-redux'
 import { receiveDecks } from  '../actions'
 
@@ -41,7 +40,6 @@ import { receiveDecks } from  '../actions'
 
   componentDidMount()  {
     //async
-
     getDecks().then((res) => { 
       this.props.dispatch(receiveDecks(res))
       })
