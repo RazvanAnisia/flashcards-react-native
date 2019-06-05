@@ -25,7 +25,7 @@ const decks = (state = {}, action) => {
         [action.deckId]: {
           ...state[action.deckId],
           questions: [
-            ...state[action.deckId].cards,
+            ...state[action.deckId].questions,
             { question: action.question, answer: action.answer }
           ]
         }

@@ -102,7 +102,7 @@ finishedView = () => {
             {!this.state.finishedDeck
               ? (deck.questions.map((question,index,array) =>
                 this.state.currentIndex === index 
-                ? (<View  key={question.id}>
+                ? (<View  key={index}>
                     <Text>{index + 1}/{array.length}</Text>
                     <Text style={styles.questionText}>
                     {this.state.showAnswer ? question.answer : question.question}

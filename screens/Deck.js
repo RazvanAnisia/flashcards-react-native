@@ -5,16 +5,9 @@ import { connect} from 'react-redux'
 
 class Deck extends React.Component {
   
-  state = {
-    currentDeck:null,
-    
-  }
-  componentDidMount() {
+   componentDidMount() {
     deckTitle = this.props.navigation.state.params.currentDeck.title
-     //async
-    //  getDeck(deckTitle).then((res) => { 
-    //   this.setState({currentDeck:res})})
-    this.setState({currentDeck:this.props.deck})
+   
   }
 
   static navigationOptions = ({navigation}) => {
@@ -54,10 +47,12 @@ class Deck extends React.Component {
      )
    }
    showDeck = () => {
-    const currentDeck = this.state.currentDeck;
+    const deckTitle = this.props.navigation.state.params.currentDeck.title
+    const currentDeck = this.props.deck;
+    
      return (
       <View style={[styles.container, { alignItems: "center" }]}>
-        <Text style={styles.cardTitle}>{this.state.currentDeck.title}</Text>
+        <Text style={styles.cardTitle}>{currentDeck.title}</Text>
        {currentDeck.questions.length > 0
         ? ( <Text style={styles.cardNumber}>
           {currentDeck.questions.length} cards
@@ -66,7 +61,7 @@ class Deck extends React.Component {
         }
        
         <View style={{ width: "30%", textAlign: "center", marginTop: 300 }}>
-          <Button onPress={()=>this.props.navigation.navigate('AddCard', {deckTitle:this.props.navigation.state.params.currentDeck.title })} 
+          <Button onPress={()=>this.props.navigation.navigate('AddCard', {deckTitle:deckTitle })} 
            title="Add Card" color="#f4511e" />
         </View>
          { currentDeck.questions.length > 0 
@@ -96,7 +91,7 @@ class Deck extends React.Component {
     console.log(this.props.deck)
     return (
       <View style={[styles.container, { alignItems: "center" }]}>
-       { this.state.currentDeck 
+       { this.props.deck
         ? this.showDeck()
         : null}
       </View>
