@@ -9,7 +9,7 @@ import { Ionicons ,  MaterialIcons } from '@expo/vector-icons';
 
 
 // const HomeStack = createStackNavigator({
-//   Decks: Decks,
+ 
 // });
 
 // HomeStack.navigationOptions = {
@@ -31,24 +31,25 @@ import { Ionicons ,  MaterialIcons } from '@expo/vector-icons';
 // };
 
 
-navigationOptions = {
-  title: 'Study Cards',
-  headerStyle: {
-    backgroundColor: '#f4511e',
-  },
-  headerTitleStyle: {
-    textAlign: 'center'      
-  },
-  headerTintColor: '#000',
-  headerTitleStyle: {
-    fontWeight: 'bold',
-  },
-};
+// navigationOptions = {
+//   title: 'Study Cards',
+//   headerStyle: {
+//     backgroundColor: '#f4511e',
+//   },
+//   headerTitleStyle: {
+//     textAlign: 'center'      
+//   },
+//   headerTintColor: '#000',
+//   headerTitleStyle: {
+//     fontWeight: 'bold',
+//   },
+// };
 
 export default createBottomTabNavigator({
   HomeStack: {
     screen:Decks,
     navigationOptions: {
+      header: null,
       tabBarOptions : {
         inactiveTintColor:'#000000',
         activeTintColor:'#ffffff',
